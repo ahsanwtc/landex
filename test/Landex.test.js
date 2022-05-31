@@ -5,8 +5,9 @@ const Landex = artifacts.require('Landex');
  * Ethereum client
  * See docs: https://www.trufflesuite.com/docs/truffle/testing/writing-tests-in-javascript
  */
-contract('Landex', () => {
+contract('Landex', accounts => {
   let landex = undefined;
+  const [admin, user] = accounts;
 
   beforeEach(async () => {
     // landex = await Landex.deployed();
@@ -20,5 +21,14 @@ contract('Landex', () => {
     expect(symbol === 'LEX');
     expect(name === 'Landex');
     expect(uri === 'uri for metadata1');
+  });
+
+  it('mints a new token', async () => {
+    const idBefore = await landex.getCurrenttokenId();
+    await landex.mint(user);
+    const idAfter = await landex.getCurrenttokenId();
+
+    expect(idBefore.toNumber() === 0);
+    expect(idAfter.toNumber() === 1);
   });
 });
