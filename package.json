@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/ahsanwtc/landex/issues"
   },
-  "homepage": "https://github.com/ahsanwtc/landex#readme"
+  "homepage": "https://github.com/ahsanwtc/landex#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.6.0"
+  }
 }
