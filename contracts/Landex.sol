@@ -8,14 +8,12 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 contract Landex is ERC1155, Ownable {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
-  address public admin;
   string public name;
   string public symbol;
 
   constructor(string memory _uri) ERC1155(_uri) {
     name = "Landex";
     symbol = "LEX";
-    admin = msg.sender;
   }
 
   /**
