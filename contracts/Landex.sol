@@ -10,8 +10,9 @@ contract Landex is ERC1155, Ownable {
   Counters.Counter private _tokenIds;
   string public name;
   string public symbol;
+  mapping(uint256 => string) private _uris;
 
-  constructor(string memory _uri) ERC1155(_uri) {
+  constructor() ERC1155('') {
     name = "Landex";
     symbol = "LEX";
   }
@@ -34,11 +35,16 @@ contract Landex is ERC1155, Ownable {
 
   function setURI(string memory _uri) external onlyOwner {
     require(bytes(_uri).length > 0, 'invalid uri');
+    // TODO: prevent setting uri twice => require(bytes(_uris[_id]).length == 0, 'cannot assign uri twice')
     _setURI(_uri);
   }
 
   function getCurrenttokenId() public view returns(uint256) {
     return _tokenIds.current();
+  }
+
+  function uri(uint256 _id) public view override returns (string memory) {
+    return _uris[_id];
   }
   
 }

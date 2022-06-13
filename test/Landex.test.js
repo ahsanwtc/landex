@@ -12,16 +12,14 @@ contract('Landex', accounts => {
 
   beforeEach(async () => {
     // landex = await Landex.deployed();
-    landex = await Landex.new('uri for metadata');
+    landex = await Landex.new(/*'uri for metadata'*/);
   });
 
   it('deployed', async () => {
     const name = await landex.name();
     const symbol = await landex.symbol();
-    const uri = await landex.uri(1);
-    expect(symbol === 'LEX');
-    expect(name === 'Landex');
-    expect(uri === 'uri for metadata1');
+    assert(symbol === 'LEX');
+    assert(name === 'Landex');
   });
 
   it('mints a new token', async () => {
@@ -29,8 +27,8 @@ contract('Landex', accounts => {
     await landex.mint(user);
     const idAfter = await landex.getCurrenttokenId();
 
-    expect(idBefore.toNumber() === 0);
-    expect(idAfter.toNumber() === 1);
+    assert(idBefore.toNumber() === 0);
+    assert(idAfter.toNumber() === 1);
   });
 
   it('should NOT set and empty uri', async () => {
