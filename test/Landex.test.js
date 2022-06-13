@@ -1,3 +1,4 @@
+const { expectRevert } = require('@openzeppelin/test-helpers');
 const Landex = artifacts.require('Landex');
 
 /*
@@ -30,5 +31,12 @@ contract('Landex', accounts => {
 
     expect(idBefore.toNumber() === 0);
     expect(idAfter.toNumber() === 1);
+  });
+
+  it('should NOT set and empty uri', async () => {
+    await expectRevert(
+      landex.setURI('', { from: admin }),
+      'invalid uri'
+    );
   });
 });
