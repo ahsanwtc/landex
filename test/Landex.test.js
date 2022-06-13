@@ -31,10 +31,19 @@ contract('Landex', accounts => {
     assert(idAfter.toNumber() === 1);
   });
 
-  it('should NOT set and empty uri', async () => {
+  it('should NOT set an empty uri', async () => {
     await expectRevert(
-      landex.setURI('', { from: admin }),
+      landex.setURI(1, '', { from: admin }),
       'invalid uri'
     );
   });
+
+  it('should NOT set uri twice', async () => {
+    await landex.setURI(1, 'uri', { from: admin }),
+    await expectRevert(
+      landex.setURI(1, 'uri', { from: admin }),
+      'cannot assign uri twice'
+    );
+  });
+
 });

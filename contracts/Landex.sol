@@ -33,10 +33,11 @@ contract Landex is ERC1155, Ownable {
     _burn(msg.sender, _id, _amount);
   }
 
-  function setURI(string memory _uri) external onlyOwner {
+  function setURI(uint256 _id, string memory _uri) external onlyOwner {
     require(bytes(_uri).length > 0, 'invalid uri');
-    // TODO: prevent setting uri twice => require(bytes(_uris[_id]).length == 0, 'cannot assign uri twice')
-    _setURI(_uri);
+    require(bytes(_uris[_id]).length == 0, 'cannot assign uri twice');
+    
+    _uris[_id] = _uri;
   }
 
   function getCurrenttokenId() public view returns(uint256) {
